@@ -20,6 +20,6 @@ if [ $? -eq 0 ]; then
       echo "storm rpc node is successfully killed"
       exit 0
   else
-      echo "Failed to kill storm rpc node" 
+      echo "Failed to kill storm rpc node"
       exit 1
   fi

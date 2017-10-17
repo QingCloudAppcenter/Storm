@@ -1,6 +1,4 @@
 #!/bin/bash
-/opt/storm/bin/rpc-stop.sh
-/opt/storm/bin/rpc-start.sh
 if ! ps -ef | grep storm.daemon |grep -v grep > /dev/null; then
          echo "storm is not running"
          exit 0
@@ -19,6 +17,6 @@ done
 echo "Fail to restart storm rpc node"
 exit 1
   else
-      echo "Failed to kill storm rpc node" 
+      echo "Failed to kill storm rpc node"
       exit 1
   fi
