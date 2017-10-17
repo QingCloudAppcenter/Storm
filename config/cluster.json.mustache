@@ -1,0 +1,205 @@
+{
+    "name": {{cluster.name}},
+    "description": {{cluster.description}},
+    "vxnet": {{cluster.vxnet}},
+    "links": {
+        "zk_service": {{cluster.zk_service}}
+    },
+    "nodes": [{
+      "role":"master",
+        "container": {
+            "type": "kvm",
+            "zone": "sh1a",
+            "image": "img-5ofl9a3w"
+        },
+        "instance_class": {{cluster.master.instance_class}},
+        "count": {{cluster.master.count}},
+        "cpu": {{cluster.master.cpu}},
+        "memory": {{cluster.master.memory}},
+        "volume": {
+            "size": {{cluster.master.volume_size}},
+            "mount_point": "/data",
+            "filesystem": "ext4"
+        },
+        "services": {
+            "start": {
+                "order": 1,
+                "cmd":"/opt/storm/bin/master-start.sh;service keepalived start"
+            },
+            "stop": {
+                "order": 3,
+                "cmd": "/opt/storm/bin/master-stop.sh;service keepalived stop"
+            },
+            "restart": {
+                "order": 1,
+                "cmd": "/opt/storm/bin/master-restart.sh;service keepalived restart"
+            }
+        },
+        "advanced_actions": ["scale_horizontal"],
+        "vertical_scaling_policy": "sequential",
+         "health_check": {
+             "enable": true,
+             "interval_sec": 60,
+             "timeout_sec": 10,
+             "action_timeout_sec": 30,
+             "healthy_threshold": 2,
+             "unhealthy_threshold": 2,
+             "check_cmd": "/opt/storm/bin/master-health_check.sh",
+             "action_cmd": "/opt/storm/bin/master-recovery.sh"
+         }
+    }, {
+      "role":"slave",
+        "container": {
+            "type": "kvm",
+            "zone": "sh1a",
+            "image": "img-50oghkxq"
+        },
+        "instance_class": {{cluster.slave.instance_class}},
+        "count": {{cluster.slave.count}},
+        "cpu": {{cluster.slave.cpu}},
+        "memory": {{cluster.slave.memory}},
+        "volume": {
+            "size": {{cluster.slave.volume_size}},
+            "mount_point": "/data",
+            "filesystem": "ext4"
+        },
+        "services": {
+            "start": {
+              "order": 2,
+                "cmd":"/opt/storm/bin/slave-start.sh"
+            },
+            "stop": {
+              "order": 1,
+                "cmd": "/opt/storm/bin/slave-stop.sh"
+            },
+            "restart": {
+                "order": 2,
+                "cmd": "/opt/storm/bin/slave-restart.sh"
+            }
+        },
+        "advanced_actions": ["scale_horizontal"],
+        "vertical_scaling_policy": "sequential",
+         "health_check": {
+             "enable": true,
+             "interval_sec": 60,
+             "timeout_sec": 10,
+             "action_timeout_sec": 30,
+             "healthy_threshold": 2,
+             "unhealthy_threshold": 2,
+             "check_cmd": "/opt/storm/bin/slave-health_check.sh",
+             "action_cmd": "/opt/storm/bin/slave-recovery.sh"
+         }
+    },{
+        "role": "rpc",
+        "container": {
+            "type": "kvm",
+            "zone": "sh1a",
+            "image": "img-50oghkxq"
+        },
+        "instance_class": {{cluster.rpc.instance_class}},
+        "count": {{cluster.rpc.count}},
+        "cpu": {{cluster.rpc.cpu}},
+        "memory": {{cluster.rpc.memory}},
+        "volume": {
+            "size": {{cluster.rpc.volume_size}},
+            "mount_point": "/data",
+            "filesystem": "ext4"
+        },
+        "services": {
+              "start": {
+                "order": 3,
+                "cmd":"/opt/storm/bin/rpc-start.sh"
+              },
+              "stop": {
+                  "order": 2,
+                  "cmd": "/opt/storm/bin/rpc-stop.sh"
+              },
+              "restart": {
+                "order": 3,
+                "cmd": "/opt/storm/bin/rpc-recovery.sh"
+              }
+        },
+        "advanced_actions": ["scale_horizontal"],
+        "health_check": {
+            "enable": true,
+            "interval_sec": 60,
+            "timeout_sec": 10,
+            "action_timeout_sec": 30,
+            "healthy_threshold": 3,
+            "unhealthy_threshold": 3,
+            "check_cmd": "/opt/storm/bin/rpc-health_check.sh",
+            "action_cmd": "/opt/storm/bin/rpc-restart.sh"
+        }
+    },{
+      "role":"client",
+        "container": {
+            "type": "kvm",
+            "zone": "sh1a",
+            "image": "img-vu55qwm7"
+        },
+        "instance_class": {{cluster.client.instance_class}},
+        "count": {{cluster.client.count}},
+        "cpu": {{cluster.client.cpu}},
+        "memory": {{cluster.client.memory}},
+        "volume": {
+            "size": {{cluster.client.volume_size}},
+            "mount_point": "/data",
+            "filesystem": "ext4"
+        },
+        "user_access": true,
+        "services": {
+            "start": {
+                "cmd":"echo 'start'"
+            },
+            "stop": {
+                "cmd": "echo 'stop'"
+            }
+        },
+      "advanced_actions": ["scale_horizontal"]
+    }],
+    "env": {
+      "zookeeper_session_timeout": {{env.zookeeper_session_timeout}},
+      "zookeeper_connection_timeout": {{env.zookeeper_connection_timeout}},
+      "zookeeper_retry_times": {{env.zookeeper_retry_times}},
+      "zookeeper_retry_interval": {{env.zookeeper_retry_interval}},
+      "zookeeper_retry_intervalceiling_millis": {{env.zookeeper_retry_intervalceiling_millis}},
+      "nimbus_childopts": {{env.nimbus_childopts}},
+      "nimbus_task_timeout_secs": {{env.nimbus_task_timeout_secs}},
+      "nimbus_supervisor_timeout_secs": {{env.nimbus_supervisor_timeout_secs}},
+      "ui_childopts": {{env.ui_childopts}},
+      "logviewer_childopts": {{env.logviewer_childopts}},
+      "drpc_childopts": {{env.drpc_childopts}},
+      "pacemaker_childopts": {{env.pacemaker_childopts}},
+      "logviewer_max_sum_worker_logs_size_mb": {{env.logviewer_max_sum_worker_logs_size_mb}},
+      "logviewer_max_per_worker_logs_size_mb": {{env.logviewer_max_per_worker_logs_size_mb}},
+      "topology_workers": {{env.topology_workers}},
+      "topology_eventlogger_executors": {{env.topology_eventlogger_executors}},
+      "supervisor_slots_ports": {{env.supervisor_slots_ports}},
+      "supervisor_childopts": {{env.supervisor_childopts}},
+      "supervisor_worker_start_timeout_secs": {{env.supervisor_worker_start_timeout_secs}},
+      "supervisor_worker_timeout_secs": {{env.supervisor_worker_timeout_secs}},
+      "supervisor_shutdown_sleep_secs": {{env.supervisor_shutdown_sleep_secs}},
+      "supervisor_monitor_frequency_secs": {{env.supervisor_monitor_frequency_secs}},
+      "supervisor_heartbeat_frequency_secs": {{env.supervisor_heartbeat_frequency_secs}},
+      "worker_heap_memory_mb": {{env.worker_heap_memory_mb}},
+      "worker_childopts": {{env.worker_childopts}}
+    },
+    "endpoints": {
+        "storm_ui": {
+            "port": 8080,
+            "protocol": "http"
+        },"logviewer": {
+            "port": 8000,
+            "protocol": "http"
+        },
+        "nimbus_thrift": {
+            "port": 6627,
+            "protocol": "tcp"
+        },
+        "reserved_ips": {
+            "storm_ui_vip": {
+                "value": ""
+            }
+      }
+    }
+    }

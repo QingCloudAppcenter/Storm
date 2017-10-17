@@ -1,0 +1,7 @@
+[template]
+  src = "storm.yaml.tmpl"
+  dest = "/opt/storm/conf/storm.yaml"
+  keys = [
+      "/",
+  ]
+  reload_cmd = "/opt/storm/bin/master-restart.sh

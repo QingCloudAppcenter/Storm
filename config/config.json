@@ -1,0 +1,429 @@
+{
+    "type": "array",
+    "properties": [{
+        "key": "cluster",
+        "description": "Storm cluster properties",
+        "type": "array",
+        "properties": [{
+            "key": "name",
+            "label": "Name",
+            "description": "The name of the Storm service",
+            "type": "string",
+            "default": "Storm",
+            "required": "no"
+        }, {
+            "key": "description",
+            "label": "Description",
+            "description": "The description of the Storm service",
+            "type": "string",
+            "default": "",
+            "required": "no"
+        }, {
+            "key": "vxnet",
+            "label": "VxNet",
+            "description": "Choose a vxnet to join",
+            "type": "string",
+            "default": "",
+            "required": "yes"
+        } , {
+            "key": "zk_service",
+            "label": "ZooKeeper",
+            "description": "Choose a ZooKeeper to use",
+            "type": "service",
+            "tag": ["ZK", "ZooKeeper"],
+            "default": "",
+            "required": "yes"
+        },{
+            "key": "master",
+            "label": "master Node",
+            "description": "master Node",
+            "type": "array",
+            "properties": [{
+                "key": "cpu",
+                "label": "CPU",
+                "description": "CPUs of each node",
+                "type": "integer",
+                "default": 2,
+                "range": [1, 2, 4, 8,16],
+                "required": "yes"
+            }, {
+                "key": "memory",
+                "label": "Memory",
+                "description": "Memory of each master node",
+                "type": "integer",
+                "default": 4096,
+                "range": [1024, 2048,4096,8192, 16384, 32768, 49152,65536],
+                "required": "yes"
+            }, {
+                "key": "instance_class",
+                "label": "Instance Class",
+                "description": "The instance type for the cluster to run, such as high performance, high performance plus",
+                "type": "integer",
+                "default": 0,
+                "range": [0, 1],
+                "required": "yes"
+            }, {
+                "key": "volume_size",
+                "label": "Volume Size",
+                "description": "The volume size for each instance",
+                "type": "integer",
+                "default": 10,
+                "required": "yes"
+            }, {
+                "key": "count",
+                "label": "Count",
+                "description": "master Node Count",
+                "type": "integer",
+                "default": 2,
+                "range": [1,2],
+                "required": "yes"
+            }]
+        },{
+            "key": "slave",
+            "label": "slave Node",
+            "description": "slave Node",
+            "type": "array",
+            "properties": [{
+                "key": "cpu",
+                "label": "CPU",
+                "description": "CPUs of each node",
+                "type": "integer",
+                "default": 2,
+                "range": [1, 2, 4, 8,16],
+                "required": "yes"
+            }, {
+                "key": "memory",
+                "label": "Memory",
+                "description": "Memory of each slave node",
+                "type": "integer",
+                "default": 4096,
+                "range": [1024, 2048,4096,8192, 16384, 32768, 49152,65536],
+                "required": "yes"
+            }, {
+                "key": "instance_class",
+                "label": "Instance Class",
+                "description": "The instance type for the cluster to run, such as high performance, high performance plus",
+                "type": "integer",
+                "default": 0,
+                "range": [0, 1],
+                "required": "yes"
+            },{
+                "key": "volume_size",
+                "label": "Volume Size",
+                "description": "The volume size for each instance",
+                "type": "integer",
+                "default": 10,
+                "required": "yes"
+            },{
+                "key": "count",
+                "label": "Count",
+                "description": "slave Node Count",
+                "type": "integer",
+                "default": 2,
+                "min":1,
+                 "max":200,
+                "required": "yes"
+            }]
+        },{
+            "key": "rpc",
+            "label": "rpc Node",
+            "description": "rpc Node",
+            "type": "array",
+            "properties": [{
+                "key": "cpu",
+                "label": "CPU",
+                "description": "CPUs of each node",
+                "type": "integer",
+                "default": 2,
+                "range": [1, 2, 4, 8,16],
+                "required": "yes"
+            }, {
+                "key": "memory",
+                "label": "Memory",
+                "description": "Memory of each node",
+                "type": "integer",
+                "default": 4096,
+                "range": [1024,2048,4096,8192, 16384, 32768, 49152,65536],
+                "required": "yes"
+            }, {
+                "key": "instance_class",
+                "label": "Instance Class",
+                "description": "The instance type for the cluster to run, such as high performance, high performance plus",
+                "type": "integer",
+                "default": 0,
+                "range": [0, 1],
+                "required": "yes"
+            },{
+                "key": "volume_size",
+                "label": "Volume Size",
+                "description": "The volume size for each instance",
+                "type": "integer",
+                "default": 10,
+                "required": "yes"
+            },{
+                "key": "count",
+                "label": "Count",
+                "description": "rpc Node Count",
+                "type": "integer",
+                "default": 0,
+                "min":0,
+                 "max":100,
+                "required": "yes"
+            }]
+        },{
+            "key": "client",
+            "label": "client Node",
+            "description": "client Node",
+            "type": "array",
+            "properties": [{
+                "key": "cpu",
+                "label": "CPU",
+                "description": "CPUs of each node",
+                "type": "integer",
+                "default": 1,
+                "range": [1, 2, 4, 8,16],
+                "required": "yes"
+            }, {
+                "key": "memory",
+                "label": "Memory",
+                "description": "Memory of each node",
+                "type": "integer",
+                "default": 2048,
+                "range": [1024, 2048, 4096,8192, 16384, 32768, 49152,65536],
+                "required": "yes"
+            }, {
+                "key": "instance_class",
+                "label": "Instance Class",
+                "description": "The instance type for the cluster to run, such as high performance, high performance plus",
+                "type": "integer",
+                "default": 0,
+                "range": [0, 1],
+                "required": "yes"
+            },{
+                "key": "volume_size",
+                "label": "Volume Size",
+                "description": "The volume size for each instance",
+                "type": "integer",
+                "default": 10,
+                "required": "yes"
+            }, {
+                "key": "count",
+                "label": "Count",
+                "description": "client Node Count",
+                "type": "integer",
+                "default":1,
+                "range": [0,1],
+                "required": "yes"
+            }]
+        }
+      ]
+    },{
+        "key": "env",
+        "description": "Storm service properties",
+        "type": "array",
+        "properties": [{
+            "key": "zookeeper_session_timeout",
+            "label": "zookeeper_session_timeout",
+            "description": "The session timeout for clients to ZooKeeper",
+            "type": "integer",
+            "default": 20000,
+             "min":5000,
+             "max":300000,
+            "required": "no"
+        },{
+            "key": "zookeeper_connection_timeout",
+            "label": "zookeeper_connection_timeout",
+            "description": "The connection timeout for clients to ZooKeeper",
+            "type": "integer",
+            "default": 15000,
+            "min":5000,
+            "max":300000,
+            "required": "no"
+        },{
+            "key": "zookeeper_retry_times",
+            "label": "zookeeper_retry_times",
+            "description": "The number of times to retry a Zookeeper operation",
+            "type": "integer",
+            "default": 5,
+            "min":1,
+            "max":20,
+            "required": "no"
+        },{
+            "key": "zookeeper_retry_interval",
+            "label": "zookeeper_retry_interval",
+            "description": "The interval between retries of a Zookeeper operation",
+            "type": "integer",
+            "default": 1000,
+            "min":1000,
+            "max":10000,
+            "required": "no"
+        },{
+            "key": "zookeeper_retry_intervalceiling_millis",
+            "label": "zookeeper_retry_intervalceiling_millis",
+            "description": "The interval time between retries of a Zookeeper operation",
+            "type": "integer",
+            "default": 30000,
+            "min":10000,
+            "max":300000,
+            "required": "no"
+        }, {
+            "key": "nimbus_childopts",
+            "label": "nimbus_childopts",
+            "description": "This parameter is used by the storm-deploy project to configure the jvm options for the nimbus daemon",
+            "type": "string",
+            "default": "-Xmx1024m",
+            "required": "yes"
+        }, {
+            "key": "nimbus_task_timeout_secs",
+            "label": "nimbus_task_timeout_secs",
+            "description": "How long without heartbeating a task can go before nimbus will consider the task dead and reassign it to another location",
+            "type": "integer",
+            "default": 30,
+            "min":10,
+            "max":300,
+            "required": "no"
+        }, {
+            "key": "nimbus_supervisor_timeout_secs",
+            "label": "nimbus_supervisor_timeout_secs",
+            "description": "How long before a supervisor can go without heartbeating before nimbus considers it dead and stops assigning new work to it",
+            "type": "integer",
+            "default": 60,
+            "min":10,
+            "max":600,
+            "required": "no"
+        },{
+            "key": "ui_childopts",
+            "label": "ui_childopts",
+            "description": "Childopts for Storm UI Java process",
+            "type": "string",
+            "default": "-Xmx768m",
+            "required": "yes"
+        },  {
+            "key": "logviewer_childopts",
+            "label": "logviewer_childopts",
+            "description": "Childopts for Storm logviewer Java process",
+            "type": "string",
+            "default": "-Xmx128m",
+            "required": "yes"
+        }, {
+            "key": "drpc_childopts",
+            "label": "drpc_childopts",
+            "description": "Childopts for Storm drpc Java process",
+            "type": "string",
+            "default": "-Xmx768m",
+            "required": "yes"
+        }, {
+            "key": "pacemaker_childopts",
+            "label": "pacemaker_childopts",
+            "description": "Childopts for Storm pacemaker Java process",
+            "type": "string",
+            "default": "-Xmx1024m",
+            "required": "yes"
+        },{
+            "key": "logviewer_max_sum_worker_logs_size_mb",
+            "label": "logviewer_max_sum_worker_logs_size_mb",
+            "description": "The maximum number of bytes all worker log files can take up in MB",
+            "type": "integer",
+            "default": 4096,
+            "required": "no"
+        }, {
+            "key": "logviewer_max_per_worker_logs_size_mb",
+            "label": "logviewer_max_per_worker_logs_size_mb",
+            "description": "The maximum number of bytes per worker’s files can take up in MB",
+            "type": "integer",
+            "default": 2048,
+            "required": "no"
+        },{
+            "key": "topology_workers",
+            "label": "topology_workers",
+            "description": "How many processes should be spawned around the cluster to execute this topology. Each process will execute some number of tasks as threads within them. This parameter should be used in conjunction with the parallelism hints on each component in the topology to tune the performance of a topology",
+            "type": "integer",
+            "default": 1,
+            "min":1,
+            "max":32,
+            "required": "no"
+        }, {
+            "key": "topology_eventlogger_executors",
+            "label": "topology_eventlogger_executors",
+            "description": "How many executors to spawn for event logger",
+            "type": "integer",
+            "default": 0,
+            "min":0,
+            "max":10,
+            "required": "no"
+        },{
+            "key": "supervisor_slots_ports",
+            "label": "supervisor_slots_ports",
+            "description": "A list of ports that can run workers on this supervisor. Each worker uses one port, and the supervisor will only run one worker per port. Use this configuration to tune how many workers run on each machine",
+            "type": "string",
+            "default": "[6700,6701,6702,6703]",
+            "required": "yes"
+        }, {
+            "key": "supervisor_childopts",
+            "label": "supervisor_childopts",
+            "description": "Childopts for Storm supervisor Java process",
+            "type": "string",
+            "default": "-Xmx256m",
+            "required": "yes"
+        },{
+            "key": "supervisor_worker_start_timeout_secs",
+            "label": "supervisor_worker_start_timeout_secs",
+            "description": "how long supervisor will wait to ensure that a worker process is started",
+            "type": "integer",
+            "default": 120,
+            "min":60,
+            "max":600,
+            "required": "no"
+        },{
+            "key": "supervisor_worker_timeout_secs",
+            "label": "supervisor_worker_timeout_secs",
+            "description": "how long between heartbeats until supervisor considers that worker dead and tries to restart it",
+            "type": "integer",
+            "default": 30,
+            "min":10,
+            "max":600,
+            "required": "no"
+        },{
+            "key": "supervisor_shutdown_sleep_secs",
+            "label": "supervisor_shutdown_sleep_secs",
+            "description": "how many seconds to sleep for before shutting down threads on worker",
+            "type": "integer",
+            "default": 3,
+            "min":3,
+            "max":600,
+            "required": "no"
+        },{
+            "key": "supervisor_monitor_frequency_secs",
+            "label": "supervisor_monitor_frequency_secs",
+            "description": "how frequently the supervisor checks on the status of the processes it's monitoring and restarts if necessary",
+            "type": "integer",
+            "default": 3,
+            "min":3,
+            "max":600,
+            "required": "no"
+        },{
+            "key": "supervisor_heartbeat_frequency_secs",
+            "label": "supervisor_heartbeat_frequency_secs",
+            "description": "how frequently the supervisor heartbeats to the cluster state (for nimbus)",
+            "type": "integer",
+            "default": 5,
+            "min":5,
+            "max":600,
+            "required": "no"
+        },{
+            "key": "worker_heap_memory_mb",
+            "label": "worker_heap_memory_mb",
+            "description": "The default heap memory size in MB per worker, used in the jvm -Xmx opts for launching the worker",
+            "type": "integer",
+            "default": 768,
+            "required": "no"
+        }, {
+            "key": "worker_childopts",
+            "label": "worker_childopts",
+            "description": "The jvm opts provided to workers launched by this supervisor",
+            "type": "string",
+            "default": "-Xmx%HEAP-MEM%m -Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8 -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump",
+            "required": "yes"
+        }]
+    }]
+}
