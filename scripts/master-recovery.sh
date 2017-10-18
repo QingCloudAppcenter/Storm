@@ -5,7 +5,7 @@ if [ "x$nimbus_pid" = "x" ]; then
   /opt/storm/bin/storm nimbus &
   for i in $(seq 0 30); do
        if  ps -ef | grep storm.daemon.nimbus |grep -v grep > /dev/null; then
-          exit 0
+          break
       fi
       sleep 1
    done
@@ -17,7 +17,7 @@ if [ "x$drpc_pid" = "x" ]; then
   /opt/storm/bin/storm drpc &
   for i in $(seq 0 20); do
        if  ps -ef | grep storm.daemon.drpc |grep -v grep > /dev/null; then
-          exit 0
+          break
       fi
       sleep 1
    done
@@ -29,7 +29,7 @@ if [ "x$logviewer_pid" = "x" ]; then
   /opt/storm/bin/storm logviewer &
   for i in $(seq 0 20); do
        if  ps -ef | grep storm.daemon.logviewer |grep -v grep > /dev/null; then
-          exit 0
+          break
       fi
       sleep 1
    done
@@ -41,7 +41,7 @@ if [ "x$ui_pid" = "x" ]; then
   /opt/storm/bin/storm ui &
   for i in $(seq 0 20); do
        if  ps -ef | grep storm.ui.core |grep -v grep > /dev/null; then
-          exit 0
+          break
       fi
       sleep 1
    done

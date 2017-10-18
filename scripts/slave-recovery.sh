@@ -5,7 +5,7 @@ if [ "x$supervisor_pid" = "x" ]; then
   /opt/storm/bin/storm supervisor &
   for i in $(seq 0 30); do
        if  ps -ef | grep storm.daemon.supervisor |grep -v grep > /dev/null; then
-          exit 0
+        break
       fi
       sleep 1
    done
@@ -17,7 +17,7 @@ if [ "x$logviewer_pid" = "x" ]; then
   /opt/storm/bin/storm logviewer &
   for i in $(seq 0 20); do
        if  ps -ef | grep storm.daemon.logviewer |grep -v grep > /dev/null; then
-          exit 0
+        break
       fi
       sleep 1
    done
